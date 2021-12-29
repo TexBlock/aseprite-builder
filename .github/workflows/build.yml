@@ -1,0 +1,45 @@
+name: Build
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Install ninja
+        uses: seanmiddleditch/gha-setup-ninja@v3
+      - name: Download Skia
+        run: |
+          curl -o Skia-Windows-Release-X64.zip -L https://github.com/aseprite/skia/releases/download/m96-2f1f21b8a9/Skia-Windows-Release-X64.zip
+          unzip Skia-Windows-Release-X64.zip -d skia
+      - name: Download Aseprite Source
+        run: |
+          curl -o aseprite.zip -L  https://github.com/aseprite/aseprite/releases/download/v1.3-beta7/Aseprite-v1.3-beta7-Source.zip
+          unzip aseprite.zip -d aseprite
+      - name: Setup Arch
+        shell: cmd
+        run: call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat" -arch=x64
+      - name: Setup VS
+        uses: seanmiddleditch/gha-setup-vsdevenv@v4
+      - name: Run CMake
+        working-directory: aseprite/build
+        shell: cmd
+        run: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_IGNORE_PATH='C:/ProgramData/chocolatey/bin/;C:/Strawberry/c/bin/' -DLAF_BACKEND=skia -DSKIA_DIR=../../skia -DSKIA_LIBRARY_DIR=../../skia/out/Release-x64 -G Ninja ..
+      - name: Run Ninja
+        working-directory: aseprite/build
+        run: ninja aseprite
+      - name: Cleanup
+        working-directory: aseprite/build/bin
+        shell: cmd
+        run: del modp_b64_gen gen.exe gen.exe.manifest modp_b64_gen.exe modp_b64_gen.exe.manifest
+      - name: Create zip
+        working-directory: aseprite/build/bin
+        run: 7z -tzip a Aseprite.zip *
+      - name: Upload 
+        uses: actions/upload-release-asset@v2.3.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: Aseprite.zip
+          path: aseprite/build/bin/Aseprite.zip
+          
