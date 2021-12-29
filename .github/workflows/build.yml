@@ -10,7 +10,7 @@ jobs:
         uses: seanmiddleditch/gha-setup-ninja@v3
       - name: Download Skia
         run: |
-          curl -o Skia-Windows-Release-X64.zip -L https://github.com/aseprite/skia/releases/download/m96-2f1f21b8a9/Skia-Windows-Release-X64.zip
+          curl -o Skia-Windows-Release-X64.zip -L https://github.com/aseprite/skia/releases/download/m81-b607b32047/Skia-Windows-Release-x64.zip
           unzip Skia-Windows-Release-X64.zip -d skia
       - name: Download Aseprite Source
         run: |
