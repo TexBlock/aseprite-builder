@@ -16,6 +16,7 @@ jobs:
         run: |
           curl -o aseprite.zip -L  https://github.com/aseprite/aseprite/releases/download/v1.3-beta7/Aseprite-v1.3-beta7-Source.zip
           unzip aseprite.zip -d aseprite
+          mkdir aseprite/build
       - name: Setup Arch
         shell: cmd
         run: call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat" -arch=x64
