@@ -54,7 +54,7 @@ jobs:
           unzip Skia-${{ runner.os }}-Release-X64.zip -d skia
     - name: Download Aseprite Source
       run: |
-          curl -o aseprite.zip -L  https://github.com/aseprite/aseprite/releases/download/v1.3-beta7/Aseprite-v1.3-beta7-Source.zip
+          curl -o aseprite.zip -L  https://github.com/aseprite/aseprite/releases/download/v1.3-beta10/Aseprite-v1.3-beta10-Source.zip
           unzip aseprite.zip -d aseprite
           mkdir aseprite/build
     - name: Setup Arch
@@ -82,5 +82,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           name: Aseprite.zip
-          path: aseprite/build/bin/Aseprite.zip
+          path: aseprite/build/bin/Aseprite-v1.3b10.zip
           
