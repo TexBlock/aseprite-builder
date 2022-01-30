@@ -6,6 +6,8 @@
 
 ## 为什么只有Windows的？
 Mac：[aseprite-macos-buildsh](https://github.com/haxpor/aseprite-macos-buildsh)
+
 Linux: None
+
 AllBuilder:[AsepriteAllBuilder](https://github.com/TexBlock/AsepriteAllBuilder) (目前修复中，不推荐)
 
